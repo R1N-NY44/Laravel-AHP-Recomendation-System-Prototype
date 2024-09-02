@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InternshipController;
+use App\Models\Course;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+
+    $courses = Course::all();
+
+    return view('main', ['courses' => $courses]);
 });
 
 Route::prefix('master')->name('master.')->group(function() {
@@ -28,4 +33,9 @@ Route::prefix('master')->name('master.')->group(function() {
         Route::get('/edit/{id}', 'edit')->name('edit');  
         Route::post('/status/{id}', 'status')->name('status');      
     });
+
+    Route::prefix('internship')->name('internship.')->controller(InternshipController::class)->group(function() {      
+        Route::post('/store', 'store')->name('store');
+    });
 });
+

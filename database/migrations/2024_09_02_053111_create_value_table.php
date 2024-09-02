@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('value', function (Blueprint $table) {            
             $table->increments('nim');
-            $table->string('name', 50);
+            $table->unsignedInteger('id_internship');
+            $table->string('name', 50);            
             $table->json('course_grades');
             $table->boolean('status')->default(true);
-            $table->timestamps();            
+            $table->timestamps();   
+            
+            $table->foreign('id_internship')->references('id_internship')->on('internships')
+        ->onDelete('cascade');
         });
     }
 

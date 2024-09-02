@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInternshipRequest;
-use App\Http\Requests\UpdateInternshipRequest;
+use App\Helpers\Response;
+use App\Http\Requests\InternshipRequest;
 use App\Models\Internship;
+use Exception;
+use Illuminate\Http\Request;
 
 class InternshipController extends Controller
 {
@@ -27,9 +29,27 @@ class InternshipController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreInternshipRequest $request)
-    {
-        //
+    public function store(InternshipRequest $request)
+    {        
+        
+        try {            
+            $associatedCourses = [];
+            foreach ($request->criteria as $criteria) {
+                $associatedCourses[] = [
+                    $criteria['course'] => $criteria['weight'],  
+                ];
+            }                        
+            // Store the internship data
+            Internship::create([
+                'name' => $request->name,
+                'associated_course' => json_encode($associatedCourses),
+                'status' => true
+            ]);
+
+            return Response::success(null, 'Lowongan berhasil ditambahkan');
+        } catch (Exception $e) {
+            return Response::errorCatch($e);
+        }        
     }
 
     /**
@@ -51,7 +71,7 @@ class InternshipController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateInternshipRequest $request, Internship $internship)
+    public function update(InternshipRequest $request, Internship $internship)
     {
         //
     }
