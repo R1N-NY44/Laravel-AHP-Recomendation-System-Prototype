@@ -1,4 +1,4 @@
-<>
+
     <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->
     <dialog id="importMasterCourse" class="modal">
         <div class="modal-box relative max-w-[30%]">

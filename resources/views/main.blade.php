@@ -873,16 +873,16 @@
 <body class="antialiased">
 
     {{-- Layout Grid --}}
-    <div class="grid grid-cols-8 gap-4 h-full">
+    <div class="grid grid-cols-8 gap-4 min-h-screen bg-[#ececf4]">
 
         {{-- Aside --}}
-        <div class="row-span-2 bg-[#eeeeee] p-10">
+        <div class="row-span-2 p-10 bg-white">
             @include('layout.aside')
         </div>
         {{-- Aside:END --}}
 
         {{-- Header --}}
-        <div class="col-span-7 bg-[#eeeeee] p-10 mt-4 mr-4 rounded-xl">
+        <div class="col-span-7 mt-4 mr-4 rounded-xl overflow-hidden">
             @include('layout.header')
         </div>
         {{-- Header:END --}}
@@ -894,7 +894,7 @@
         {{-- Content:END --}}
 
         {{-- Footer --}}
-        <div class="col-span-8 bg-[#eeeeee] p-10 mr-4 rounded-xl">
+        <div class="col-span-8 bg-white p-10 -mb-4">
             @include('layout.footer')
         </div>
         {{-- Footer:END --}}
