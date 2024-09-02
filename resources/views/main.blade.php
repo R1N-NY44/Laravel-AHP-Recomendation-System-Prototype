@@ -8,6 +8,9 @@
     @vite('resources/css/app.css')
     <title>Laravel</title>
 
+    @yield('meta_header')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -836,7 +839,7 @@
                 padding: 2rem
             }
         }
-    </style>
+    </style>    
 
     <!-- Daisy UI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -904,6 +907,9 @@
         {{-- Modals:END --}}
     </div>
     {{-- Layout Grid:END --}}
+    <script src="{{ asset('js/content.js') }}"></script>
+
+    @yield('page_script')
 </body>
 
 </html>

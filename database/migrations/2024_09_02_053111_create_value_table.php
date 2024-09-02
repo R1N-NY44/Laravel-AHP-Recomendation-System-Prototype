@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('value', function (Blueprint $table) {
-            $table->integer('nim')->primary();
+        Schema::create('value', function (Blueprint $table) {            
+            $table->increments('nim');
             $table->string('name', 50);
             $table->json('course_grades');
-            $table->timestamps();
+            $table->boolean('status')->default(true);
+            $table->timestamps();            
         });
     }
 

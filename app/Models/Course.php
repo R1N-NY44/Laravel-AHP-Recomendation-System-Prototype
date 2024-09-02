@@ -9,8 +9,7 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $table = 'course';
+protected $table = 'courses';
     protected $guarded = ['id_course'];
-
-
+    protected $primaryKey = 'id_course';
 }

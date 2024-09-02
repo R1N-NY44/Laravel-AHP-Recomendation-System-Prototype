@@ -3,15 +3,16 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreInternshipRequest extends FormRequest
+class CourseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,15 @@ class StoreInternshipRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (isset($this->id)) {
+            return [
+                'name' => ['required', 'string', Rule::unique('courses')->ignore($this->id, 'id_course')]    
+            ];
+        }
+       
+
         return [
-            //
+            'name' => ['required', 'string', 'unique:courses,name']  
         ];
     }
 }
