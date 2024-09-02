@@ -843,31 +843,67 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Daisy UI -->
 
+    <!-- JQery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- JQery -->
+
+    <!-- Data table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <!-- Data table -->
+
+    <!-- Data table style -->
+    <style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.25rem 0.75rem;
+            margin-left: 0.25rem;
+            border-radius: 200px;
+            /* Rounded */
+            border: 1px solid transparent;
+            color: #4b5563;
+            /* Text color */
+            font-size: 0.875rem;
+            /* Text size (sm) */
+        }
+    </style>
+    <!-- Data table style -->
+
 </head>
 
 <body class="antialiased">
 
-    {{-- Header --}}
-    <div>
+    {{-- Layout Grid --}}
+    <div class="grid grid-cols-8 gap-4 h-full">
 
+        {{-- Aside --}}
+        <div class="row-span-2 bg-[#eeeeee] p-10">
+            @include('layout.aside')
+        </div>
+        {{-- Aside:END --}}
+
+        {{-- Header --}}
+        <div class="col-span-7 bg-[#eeeeee] p-10 mt-4 mr-4 rounded-xl">
+            @include('layout.header')
+        </div>
+        {{-- Header:END --}}
+
+        {{-- Content --}}
+        <div class="col-span-7 bg-[#eeeeee] p-10 mr-4 rounded-xl">
+            @include('layout.content')
+        </div>
+        {{-- Content:END --}}
+
+        {{-- Footer --}}
+        <div class="col-span-8 bg-[#eeeeee] p-10 mr-4 rounded-xl">
+            @include('layout.footer')
+        </div>
+        {{-- Footer:END --}}
+
+        {{-- Modals --}}
+        @include('modals.main_modals')
+        {{-- Modals:END --}}
     </div>
-    {{-- Header:END --}}
-
-    {{-- Aside --}}
-    <div>
-
-    </div>
-    {{-- Aside:END --}}
-
-    {{-- Content --}}
-    <div>
-        @include('content')
-    </div>
-    {{-- Content:END --}}
-
-    {{-- Modals --}}
-    @include('modals.main_modals')
-    {{-- Modals:END --}}
+    {{-- Layout Grid:END --}}
 </body>
 
 </html>
