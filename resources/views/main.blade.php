@@ -888,7 +888,7 @@
         {{-- Header:END --}}
 
         {{-- Content --}}
-        <div class="col-span-7 bg-[#eeeeee] p-10 mr-4 rounded-xl">
+        <div class="col-span-7 mr-4 rounded-xl">
             @include('layout.content')
         </div>
         {{-- Content:END --}}
