@@ -9,6 +9,6 @@ class Internship extends Model
 {
     use HasFactory;
 
-    protected $table = 'internship';
+    protected $table = 'internships';
     protected $guarded = ['id_internship'];
 }

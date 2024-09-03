@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InternshipController;
+use App\Http\Controllers\ValueController;
+use App\Models\Course;
+use App\Models\Internship;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +19,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+
+    $courses = Course::all();
+    $internships = Internship::all();
+
+    return view('main', ['courses' => $courses, 'internships' => $internships]);
 });
+
+Route::prefix('master')->name('master.')->group(function() {
+    Route::prefix('course')->name('course.')->controller(CourseController::class)->group(function() {
+        Route::get('/', 'index');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/show', 'show')->name('show');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::get('/edit/{id}', 'edit')->name('edit');  
+        Route::post('/status/{id}', 'status')->name('status');      
+    });
+
+    Route::prefix('internship')->name('internship.')->controller(InternshipController::class)->group(function() {      
+        Route::post('/store', 'store')->name('store');
+        Route::get('/internships/{id}', 'show')->name('show');
+
+    });
+
+    Route::prefix('value')->name('value.')->controller(ValueController::class)->group(function() {      
+        Route::post('/store', 'store')->name('store');        
+    });
+});
+

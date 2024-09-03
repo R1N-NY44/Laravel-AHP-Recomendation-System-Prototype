@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreValueRequest;
 use App\Http\Requests\UpdateValueRequest;
+use App\Http\Requests\ValueRequest;
 use App\Models\Value;
 
 class ValueController extends Controller
@@ -27,15 +28,38 @@ class ValueController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreValueRequest $request)
-    {
-        //
+    public function store(ValueRequest $request)
+    {        
+        try {
+            $valueData = [];
+            foreach ($request->candidate as $item) {
+                $valueData[] = [
+                    'nim' => $request->nim,
+                    'id_internship' => $request->input('id_internship'),
+                    'name' => $request->input('name'),
+                    'ipk' => $request->input('ipk'),
+                    'course_grades' => json_encode([[
+                        $item['course'] => $item['weight']
+                    ]]),
+                    'status' => true
+                ];
+            }
+
+            foreach ($valueData as $data) {
+                Value::create($data);
+            }
+
+            return response()->json(['message' => 'Data Kandidat berhasil disimpan'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
 
     /**
      * Display the specified resource.
      */
-    public function show(Value $value)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +75,7 @@ class ValueController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateValueRequest $request, Value $value)
+    public function update(ValueRequest $request, Value $value)
     {
         //
     }

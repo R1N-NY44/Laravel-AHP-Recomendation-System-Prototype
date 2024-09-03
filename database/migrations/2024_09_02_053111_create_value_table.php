@@ -11,11 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('value', function (Blueprint $table) {
-            $table->integer('nim')->primary();
-            $table->string('name', 50);
+        Schema::create('values', function (Blueprint $table) {            
+            $table->integer('nim')->primary();            
+            $table->unsignedInteger('id_internship');
+            $table->string('name', 50);            
+            $table->decimal('ipk', 3, 2)->nullable();
             $table->json('course_grades');
-            $table->timestamps();
+            $table->boolean('status')->default(true);
+            $table->timestamps();   
+            
+            $table->foreign('id_internship')->references('id_internship')->on('internships')
+        ->onDelete('cascade');
         });
     }
 
@@ -24,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('value');
+        Schema::dropIfExists('values');
     }
 };
