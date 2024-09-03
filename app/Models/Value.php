@@ -9,6 +9,8 @@ class Value extends Model
 {
     use HasFactory;
 
-    protected $table = 'value';
-    protected $guarded = ['id_value'];
+    protected $table = 'values';
+    protected $keyType = 'string';
+    protected $primaryKey = 'nim';
+    protected $guarded = [];
 }

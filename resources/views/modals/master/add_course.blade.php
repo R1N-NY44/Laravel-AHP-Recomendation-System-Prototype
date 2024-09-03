@@ -9,10 +9,10 @@
                 </form>
             </div>
 
-            <form action="#" method="POST" onsubmit="return validateForm()" class="flex flex-col items-center">
+            <form class="default-form flex flex-col items-center" action="{{ route('master.course.store') }}" function-callback="afterAction">
                 @csrf
-                <input type="text" placeholder="Type here" class="input input-bordered input-info w-full max-w-xs" />
-                <button type="submit" class="btn btn-accent mt-4 w-full max-w-xs">Save</button>
+                <input type="text" placeholder="Type here" name="name" class="input input-bordered input-info w-full max-w-xs" />
+                <button type="submit" id="modal-button" class="btn btn-accent mt-4 w-full max-w-xs">Save</button>                
             </form>
 
         </div>
