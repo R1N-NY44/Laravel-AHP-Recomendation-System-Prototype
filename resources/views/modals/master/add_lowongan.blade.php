@@ -8,7 +8,7 @@
                 </form>
             </div>
 
-            <form class="default-form flex min-w-full flex-col" action="{{ route('master.internship.store') }}" method="POST">
+            <form class="default-form " action="{{ route('master.internship.store') }}" method="POST">
                 @csrf
                 <label class="input input-bordered mb-5 flex items-center gap-4">
                     Nama Lowongan
@@ -37,7 +37,7 @@
                     <button data-repeater-create type="button" class="btn w-full btn-primary mt-4">Tambah Kriteria</button>
                 </div>
 
-                <button type="submit" class="btn btn-success mt-4">Simpan</button>
+                <button type="submit" class="btn btn-success mt-4 w-full">Simpan</button>
             </form>
         </div>
     </dialog>

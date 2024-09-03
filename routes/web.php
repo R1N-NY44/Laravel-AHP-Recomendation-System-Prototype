@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InternshipController;
+use App\Http\Controllers\ValueController;
 use App\Models\Course;
+use App\Models\Internship;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     $courses = Course::all();
+    $internships = Internship::all();
 
-    return view('main', ['courses' => $courses]);
+    return view('main', ['courses' => $courses, 'internships' => $internships]);
 });
 
 Route::prefix('master')->name('master.')->group(function() {
@@ -36,6 +39,12 @@ Route::prefix('master')->name('master.')->group(function() {
 
     Route::prefix('internship')->name('internship.')->controller(InternshipController::class)->group(function() {      
         Route::post('/store', 'store')->name('store');
+        Route::get('/internships/{id}', 'show')->name('show');
+
+    });
+
+    Route::prefix('value')->name('value.')->controller(ValueController::class)->group(function() {      
+        Route::post('/store', 'store')->name('store');        
     });
 });
 

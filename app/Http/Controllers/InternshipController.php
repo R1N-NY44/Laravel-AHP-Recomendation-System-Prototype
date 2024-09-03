@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Response;
 use App\Http\Requests\InternshipRequest;
+use App\Models\Course;
 use App\Models\Internship;
 use Exception;
 use Illuminate\Http\Request;
@@ -55,9 +56,43 @@ class InternshipController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Internship $internship)
+    public function show($id)
     {
-        //
+        // Fetch the internship based on the ID
+        $internship = Internship::where('id_internship', $id)->first();
+        
+        if (!$internship) {
+            return response()->json(['error' => 'Internship not found'], 404);
+        }
+
+         // Decode the associated courses and weights from JSON
+         $criteria = json_decode($internship->associated_course, true);
+
+         // Extract course IDs from criteria
+         $courseIds = array_map(function ($item) {
+             return key($item); // Get course ID
+         }, $criteria);
+ 
+         // Fetch course details where course ID is in the list
+         $courses = Course::whereIn('id_course', $courseIds)->get();
+ 
+         // Create a map of course ID to course name
+         $courseMap = $courses->pluck('name', 'id_course')->toArray();
+ 
+         // Prepare data to send in the response
+         $response = [
+             'criteria' => array_map(function ($item) use ($courseMap) {
+                 // Map the JSON data to a format suitable for your repeater
+                 return [
+                     'course_id' => key($item), // Course ID
+                     'course_name' => $courseMap[key($item)], // Course Name
+                     'weight' => reset($item)   // Weight
+                 ];
+             }, $criteria)
+         ];
+
+
+        return response()->json($response);
     }
 
     /**
